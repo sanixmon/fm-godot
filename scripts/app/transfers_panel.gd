@@ -133,7 +133,7 @@ func _add_inspector(side: VBoxContainer, season: SeasonState) -> void:
 	side.add_child(FMUI.row("Club: %s" % AppState.game.club(owner).name))
 	side.add_child(FMUI.row("Wage %d/w • Contract until %s" % [player.contract.weekly_wage, player.contract.expires_on]))
 	for a in [Attribute.Kind.PACE, Attribute.Kind.SHOOTING, Attribute.Kind.PASSING, Attribute.Kind.DRIBBLING, Attribute.Kind.DEFENDING, Attribute.Kind.PHYSICAL]:
-		side.add_child(FMUI.row("%-10s %3d" % [Attribute.to_string_value(a).capitalize(), player.attributes.get(a)]))
+		side.add_child(FMUI.row("%-10s %3d" % [Attribute.to_string_value(a).capitalize(), player.attributes.attr_value(a)]))
 	side.add_child(FMUI.row("Fee %d" % fee, Color("#10B981")))
 	side.add_child(FMUI.row("Balance after %d" % (balance - fee)))
 	var buy := FMUI.button("EXECUTE TRANSFER" if balance >= fee else "INSUFFICIENT FUNDS")

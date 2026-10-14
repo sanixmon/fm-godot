@@ -122,7 +122,7 @@ func _add_inspector(side: VBoxContainer) -> void:
 	]))
 	side.add_child(FMUI.header("ATTRIBUTES"))
 	for a in Attribute.Kind.values():
-		side.add_child(FMUI.row("%-10s %3d" % [Attribute.to_string_value(a).capitalize(), player.attributes.get(a)]))
+		side.add_child(FMUI.row("%-10s %3d" % [Attribute.to_string_value(a).capitalize(), player.attributes.attr_value(a)]))
 	side.add_child(FMUI.header("CONTRACT"))
 	side.add_child(FMUI.row("Wage %d/w • until %s" % [player.contract.weekly_wage, player.contract.expires_on]))
 	side.add_child(FMUI.header("TRAINING"))

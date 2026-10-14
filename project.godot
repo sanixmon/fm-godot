@@ -13,7 +13,7 @@ config/features=PackedStringArray("4.4", "GL Compatibility")
 
 [autoload]
 
-Game="*res://scripts/app/game_state.gd"
+AppState="*res://scripts/app/game_state.gd"
 
 [display]
 

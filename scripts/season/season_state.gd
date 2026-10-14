@@ -224,11 +224,12 @@ static func from_dict(d: Dictionary) -> SeasonState:
 	elif d.get("league") is League:
 		lg = d["league"]
 	var teams: Array[Team] = []
+	var raw_teams: Array = []
 	for raw in d.get("teams", []):
 		if raw is Team:
 			teams.append(raw)
 		elif raw is Dictionary:
-			teams.append(Team.from_dict(raw))
+			raw_teams.append(raw)
 	var fx: Array[SeasonFixture] = []
 	for raw in d.get("fixtures", []):
 		if raw is SeasonFixture:
@@ -254,6 +255,8 @@ static func from_dict(d: Dictionary) -> SeasonState:
 	for k in (d.get("players", {}) as Dictionary).keys():
 		var v: Variant = (d.get("players") as Dictionary)[k]
 		players[int(k)] = Player.from_dict(v) if v is Dictionary else v
+	for raw in raw_teams:
+		teams.append(Team.from_dict(raw, players))
 	var lineups: Dictionary = {}
 	for k in (d.get("lineups", {}) as Dictionary).keys():
 		var v: Variant = (d.get("lineups") as Dictionary)[k]

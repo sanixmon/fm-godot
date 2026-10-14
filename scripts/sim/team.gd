@@ -95,7 +95,8 @@ func to_dict() -> Dictionary:
 
 
 ## Rebuilds the team from stored values; `players` maps player id -> Player.
-static func from_dict(d: Dictionary, players: Dictionary) -> Team:
+## When omitted, starters/substitutes resolve to empty (snapshot display only).
+static func from_dict(d: Dictionary, players: Dictionary = {}) -> Team:
 	var starters: Array = []
 	for pid in d.get("starterIds", []):
 		if players.has(int(pid)):

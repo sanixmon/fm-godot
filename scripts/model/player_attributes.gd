@@ -12,7 +12,9 @@ func _init(values: Dictionary = {}) -> void:
 		_values[a] = clampi(v, Attribute.MIN_VALUE, Attribute.MAX_VALUE)
 
 
-func get(attr: int) -> int:
+## Named attr_value (not `get`): Object.get(StringName) already exists and
+## overriding it is a compile error in Godot 4.
+func attr_value(attr: int) -> int:
 	return _values.get(attr, Attribute.MIN_VALUE)
 
 
@@ -24,7 +26,7 @@ func overall(position: int) -> int:
 	for attr: int in weights:
 		var w: int = weights[attr]
 		total += w
-		weighted_sum += get(attr) * w
+		weighted_sum += attr_value(attr) * w
 	return clampi(int(round(float(weighted_sum) / float(total))), Attribute.MIN_VALUE, Attribute.MAX_VALUE)
 
 

@@ -106,7 +106,7 @@ static func calculate_annual_development(player, training_level: int = 1, season
 			for attr in shuffled:
 				if points_remaining <= 0:
 					break
-				var current_val: int = player.attributes.get(int(attr))
+				var current_val: int = player.attributes.attr_value(int(attr))
 				if current_val < int(player.potential) and current_val < MAX_ATTRIBUTE:
 					deltas[int(attr)] = int(deltas.get(attr, 0)) + 1
 					points_remaining -= 1
@@ -114,7 +114,7 @@ static func calculate_annual_development(player, training_level: int = 1, season
 				for attr in shuffled:
 					if points_remaining <= 0:
 						break
-					var current_val: int = player.attributes.get(int(attr)) + int(deltas.get(attr, 0))
+					var current_val: int = player.attributes.attr_value(int(attr)) + int(deltas.get(attr, 0))
 					if current_val < int(player.potential) and current_val < MAX_ATTRIBUTE:
 						deltas[int(attr)] = int(deltas.get(attr, 0)) + 1
 						points_remaining -= 1

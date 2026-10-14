@@ -297,7 +297,7 @@ func simulate(
 
 					# Is shot on target?
 					var on_target_prob: float = clampf(
-						0.50 + (float(shooter.attributes.get(ATTR_SHOOTING)) / 300.0), 0.35, 0.75
+						0.50 + (float(shooter.attributes.attr_value(ATTR_SHOOTING)) / 300.0), 0.35, 0.75
 					)
 					if rng.next_double() < on_target_prob:
 						attacking_ctx.shots_on_target += 1
@@ -311,8 +311,8 @@ func simulate(
 						var gk: Player = defending_ctx.active_goalkeeper()
 						var gk_skill: int = defending_ctx.team.defense
 						if gk != null:
-							gk_skill = gk.attributes.get(ATTR_GOALKEEPER)
-						var shoot_skill: int = shooter.attributes.get(ATTR_SHOOTING)
+							gk_skill = gk.attributes.attr_value(ATTR_GOALKEEPER)
+						var shoot_skill: int = shooter.attributes.attr_value(ATTR_SHOOTING)
 						var goal_prob: float = clampf(0.35 + float(shoot_skill - gk_skill) * 0.005, 0.12, 0.65)
 						if rng.next_double() < goal_prob:
 							# GOAL!
