@@ -85,7 +85,7 @@ static func _months_between(from_iso: String, to_iso: String) -> int:
 
 
 static func _parse_date(iso: String) -> Dictionary:
-	var d: Dictionary = Time.get_datetime_dict_from_datetime_string(iso)
+	var d: Dictionary = Time.get_datetime_dict_from_datetime_string(iso, false)
 	if d.is_empty() and not iso.contains("T"):
-		d = Time.get_datetime_dict_from_datetime_string(iso + "T00:00:00")
+		d = Time.get_datetime_dict_from_datetime_string(iso + "T00:00:00", false)
 	return d

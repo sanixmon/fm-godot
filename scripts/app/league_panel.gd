@@ -22,7 +22,7 @@ func refresh() -> void:
 	add_child(FMUI.header("YOUR SEASON"))
 	var mine: Array = season.results.filter(
 		func(r) -> bool: return r.home_club_id == AppState.human_club_id or r.away_club_id == AppState.human_club_id
-	).take_last(5)
+	).slice(-5)
 	if mine.is_empty():
 		add_child(FMUI.row("No matches played yet."))
 	else:

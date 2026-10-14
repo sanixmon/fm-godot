@@ -2,13 +2,13 @@
 class_name SaveDialog
 extends PopupPanel
 
-var mode: String = "save"
+var dialog_mode: String = "save"
 var on_done: Callable = Callable()
 
 
 static func show_dialog(parent: Node, p_mode: String, p_on_done: Callable = Callable()) -> SaveDialog:
 	var d := SaveDialog.new()
-	d.mode = p_mode
+	d.dialog_mode = p_mode
 	d.on_done = p_on_done
 	parent.add_child(d)
 	d._rebuild()
@@ -22,7 +22,7 @@ func _rebuild() -> void:
 	var root := VBoxContainer.new()
 	root.add_theme_constant_override("separation", 8)
 	add_child(root)
-	root.add_child(FMUI.title("LOAD CAREER" if mode == "load" else "SAVE CAREER"))
+	root.add_child(FMUI.title("LOAD CAREER" if dialog_mode == "load" else "SAVE CAREER"))
 	var slots: Array = SaveGame.get_all_slots_metadata()
 	if slots.is_empty():
 		root.add_child(FMUI.row("No save slots found."))
@@ -41,8 +41,8 @@ func _rebuild() -> void:
 			info.text = "[empty]"
 		info.add_theme_font_size_override("font_size", 12)
 		line.add_child(info)
-		var go := FMUI.button("LOAD" if mode == "load" else "SAVE")
-		go.disabled = mode == "load" and not meta.exists
+		var go := FMUI.button("LOAD" if dialog_mode == "load" else "SAVE")
+		go.disabled = dialog_mode == "load" and not meta.exists
 		go.pressed.connect(_on_slot.bind(str(meta.slot)))
 		line.add_child(go)
 	var close_b := FMUI.button("Close")
@@ -51,7 +51,7 @@ func _rebuild() -> void:
 
 
 func _on_slot(slot: String) -> void:
-	if mode == "load":
+	if dialog_mode == "load":
 		AppState.load_career(slot)
 	else:
 		AppState.save_career(slot)

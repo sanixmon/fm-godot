@@ -41,7 +41,7 @@ func _add_form_row(season: SeasonState) -> void:
 	line.add_child(t)
 	var mine: Array = season.results.filter(
 		func(r) -> bool: return r.home_club_id == AppState.human_club_id or r.away_club_id == AppState.human_club_id
-	).take_last(5)
+	).slice(-5)
 	if mine.is_empty():
 		line.add_child(FMUI.row("No matches yet"))
 		return
