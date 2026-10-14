@@ -1,6 +1,6 @@
 extends Node
 
-class GutAwaiterLogger:
+class AwaitLogger:
 	var _time_waited = 0.0
 	var logger = GutUtils.get_logger()
 	var waiting_on = "nothing"
@@ -31,7 +31,7 @@ class GutAwaiterLogger:
 signal timeout
 signal wait_started
 
-var await_logger = GutAwaiterLogger.new()
+var await_logger = AwaitLogger.new()
 var _wait_time := 0.0
 var _wait_process_frames := 0
 var _wait_physics_frames := 0
