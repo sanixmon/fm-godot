@@ -27,11 +27,12 @@ jobs:
       - name: Import project (headless)
         run: godot --headless --path . --import --quit
 
-      # Parse-check every script (catches syntax errors without running).
+      # Parse-check engine scripts (app/ needs autoloads, so it is covered by
+      # the boot smoke test below instead of --check-only).
       - name: Parse-check GDScript
         run: |
           fail=0
-          for f in $(find scripts tests -name '*.gd'); do
+          for f in $(find scripts tests -name '*.gd' -not -path 'scripts/app/*'); do
             if godot --headless --path . --check-only --script "$f" > /tmp/check.log 2>&1; then
               :
             else
@@ -40,8 +41,15 @@ jobs:
               fail=1
             fi
           done
-          echo "checked $(find scripts tests -name '*.gd' | wc -l) files"
+          echo "parse-check done"
           exit $fail
+
+      # Boot the game headless (compiles app/ with autoloads + runs menu boot).
+      - name: Smoke-boot game
+        run: |
+          timeout 120 godot --headless --path . --quit-after 30 > /tmp/boot.log 2>&1 || true
+          grep -vE '^[[:space:]]*$' /tmp/boot.log | tail -8 || true
+          if grep -q "SCRIPT ERROR" /tmp/boot.log; then exit 1; fi
 
       # GUT suite (headless, stable exit).
       - name: Run GUT tests

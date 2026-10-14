@@ -142,8 +142,8 @@ static func side_name(side: int) -> String:
 
 func simulate(
 	home: Team, away: Team,
-	home_starters: Array = null, home_subs: Array = null,
-	away_starters: Array = null, away_subs: Array = null
+	home_starters = null, home_subs = null,
+	away_starters = null, away_subs = null
 ) -> MatchResult:
 	assert(home.club_id != away.club_id, "home and away must be different clubs")
 
