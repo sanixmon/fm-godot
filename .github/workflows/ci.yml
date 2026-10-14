@@ -31,14 +31,16 @@ jobs:
       - name: Parse-check GDScript
         run: |
           fail=0
-          while IFS= read -r -d '' f; do
-            out=$(godot --headless --path . --check-only --script "$f" 2>&1)
-            if [ $? -ne 0 ]; then
+          for f in $(find scripts tests -name '*.gd'); do
+            if godot --headless --path . --check-only --script "$f" > /tmp/check.log 2>&1; then
+              :
+            else
               echo "PARSE FAILED: $f"
-              echo "$out" | grep -vE "^\s*$" | head -8
+              grep -vE '^[[:space:]]*$' /tmp/check.log | head -8 || true
               fail=1
             fi
-          done < <(find scripts tests -name '*.gd' -print0)
+          done
+          echo "checked $(find scripts tests -name '*.gd' | wc -l) files"
           exit $fail
 
       # GUT suite (headless, stable exit).
