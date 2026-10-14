@@ -1,0 +1,9 @@
+# Godot editor / import artifacts
+.godot/
+# Android / export artifacts
+build/
+*.apk
+*.aab
+# OS / local
+.DS_Store
+Thumbs.db

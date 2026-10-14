@@ -1,0 +1,40 @@
+{
+  "name": "Contoh Liga Mod",
+  "startDate": "2026-08-01",
+  "league": {
+    "name": "Liga Contoh"
+  },
+  "clubs": [
+    {
+      "name": "Klub Alpha",
+      "shortName": "ALP",
+      "graphicsId": 680,
+      "formation": "4-3-3",
+      "mentality": "Attacking",
+      "players": [
+        { "name": "Budi Santoso", "position": "ST", "age": 26, "nationality": "ID", "graphicsId": 98012345, "attributes": { "SHOOTING": 88, "PACE": 85, "DRIBBLING": 80 } },
+        { "name": "Citra Wijaya", "position": "CM", "age": 24, "nationality": "ID", "attributes": { "PASSING": 82, "DRIBBLING": 79 } },
+        { "name": "Dewa Pratama", "position": "GK", "age": 30, "nationality": "ID", "attributes": { "GOALKEEPER": 78, "PHYSICAL": 75 } }
+      ]
+    },
+    {
+      "name": "Klub Beta",
+      "shortName": "BET",
+      "formation": "3-5-2",
+      "mentality": "Defensive",
+      "players": [
+        { "name": "Eko Nugroho", "position": "CB", "age": 28, "nationality": "ID", "attributes": { "DEFENDING": 86, "PHYSICAL": 84 } },
+        { "name": "Fajar Hidayat", "position": "DM", "age": 23, "nationality": "ID", "attributes": { "DEFENDING": 80, "PASSING": 82 } }
+      ]
+    },
+    {
+      "name": "Klub Gamma",
+      "shortName": "GAM",
+      "formation": "4-4-2",
+      "mentality": "Balanced",
+      "players": [
+        { "name": "Galih Kurniawan", "position": "ST", "age": 27, "nationality": "ID", "attributes": { "SHOOTING": 75, "PHYSICAL": 78 } }
+      ]
+    }
+  ]
+}

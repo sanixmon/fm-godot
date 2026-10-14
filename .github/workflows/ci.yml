@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Godot
+        uses: chickensoft-games/setup-godot@v2
+        with:
+          version: 4.5.1
+          use-dotnet: false
+
+      # Warm-up import so class_name scripts register (no .godot committed).
+      - name: Import project (headless)
+        run: godot --headless --path . --import --quit
+
+      # Parse-check every script (catches syntax errors without running).
+      - name: Parse-check GDScript
+        run: |
+          fail=0
+          while IFS= read -r -d '' f; do
+            if ! godot --headless --path . --check-only --script "$f" >/dev/null 2>&1; then
+              echo "PARSE FAILED: $f"
+              fail=1
+            fi
+          done < <(find scripts tests -name '*.gd' -print0)
+          exit $fail
+
+      # GUT suite (headless, stable exit).
+      - name: Run GUT tests
+        env:
+          GODOT_DISABLE_LEAK_CHECKS: "1"
+        run: >
+          godot --headless -d
+          --display-driver headless
+          --audio-driver Dummy
+          --disable-render-loop
+          --path .
+          -s res://addons/gut/gut_cmdln.gd
+          -gdir=res://tests
+          -ginclude_subdirs
+          -gexit
