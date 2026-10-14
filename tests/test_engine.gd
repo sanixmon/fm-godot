@@ -25,8 +25,8 @@ func test_effective_overall_neutral_condition_equals_base() -> void:
 
 func test_attributes_clamp_and_default() -> void:
 	var attrs := PlayerAttributes.new({Attribute.Kind.PACE: 150})
-	assert_eq(attrs.get(Attribute.Kind.PACE), 100)
-	assert_eq(attrs.get(Attribute.Kind.SHOOTING), Attribute.MIN_VALUE)
+	assert_eq(attrs.attr_value(Attribute.Kind.PACE), 100)
+	assert_eq(attrs.attr_value(Attribute.Kind.SHOOTING), Attribute.MIN_VALUE)
 
 
 func test_fixture_generation_double_round_robin() -> void:
