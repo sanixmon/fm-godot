@@ -67,9 +67,13 @@ directly in the Godot editor — no Gradle, no Android SDK.
 
 ## Verification status
 
-- No Godot binary exists on this machine: **no parse check, no test run, no visual
-  check was possible**. Static checks pass (94 files, tabs everywhere, no duplicate
-  `class_name`, balanced braces, cross-batch APIs reconciled in review).
-- Authoritative check: open in Godot 4 → run GUT (`tests/test_engine.gd`) →
-  click through menu → wizard → dashboard → squad → tactics → match → league →
-  transfers, then work the parity checklist above.
+- GitHub Actions CI (`.github/workflows/ci.yml`, Godot 4.5.1 + GUT v9.5.0):
+  **passing** — headless import, per-file parse-check, 6/6 GUT tests
+  (`tests/test_engine.gd`), headless boot smoke test with zero script errors.
+- Fixed along the way from real CI logs: autoload/class_name clash, `get()`
+  override (renamed `attr_value`), `from_dict` arity, `Array = null` defaults,
+  `take_last` → `slice`, dialog `mode` clash, datetime weekday flag, GUT/4.5
+  version pairing.
+- Not yet done: on-device/emulator visual check and Android export
+  (keystore + templates) — both need a machine with Godot/a device, neither
+  available to the porting agent.
